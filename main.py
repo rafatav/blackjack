@@ -1,4 +1,5 @@
 import random
+import os
 from art import logo
 def deal_card():
     """"Return a random card from the deck"""
@@ -16,22 +17,22 @@ def calculate_score(cards):
 
 def compare(user_score, computer_score):
     if user_score > 21 and computer_score > 21:
-        return "You went over. You lose"
+        return "Você ultrapassou. Você perdeu"
 
     if user_score == computer_score:
-        return "Draw"
+        return "Empate"
     elif computer_score == 0:
-        return "You lose, opponent has Blackjack"
+        return "Você perdeu, oponente tem Blackjack"
     elif user_score == 0:
-        return "You win with a Blackjack"
+        return "Você venceu com um Blackjack"
     elif user_score > 21:
-        return "You went over. You lose"
+        return "Você ultrapassou. Você perdeu"
     elif computer_score > 21:
-        return "Opponent went over. You win"
+        return "Oponente ultrapassou. Você venceu"
     elif user_score > computer_score:
-        return "You win"
+        return "Você venceu"
     else:
-        return "You lose"
+        return "Você perdeu"
 def play_game():
     print(logo)
     user_cards = []
@@ -46,14 +47,14 @@ def play_game():
         user_score = calculate_score(user_cards)
         computer_score = calculate_score(computer_cards)
 
-        print(f"    Your cards: {user_cards}, current score: {user_score}")
-        print(f"    Computer's first card: {computer_cards[0]}")
+        print(f"    Suas cartas: {user_cards}, pontuação atual: {user_score}")
+        print(f"    Primeira carta do computador: {computer_cards[0]}")
 
         if user_score == 0 or computer_score == 0 or user_score > 21:
             is_game_over = True
         else:
-            user_should_deal = input("Typer 'y' to get another card, type 'n' to pass: ")
-            if user_should_deal == "y":
+            user_should_deal = input("Digite 's' para pegar outra carta, digite 'n' para passar: ")
+            if user_should_deal == "s":
                 user_cards.append(deal_card())
             else:
                 is_game_over = True
@@ -62,8 +63,9 @@ def play_game():
         computer_cards.append(deal_card())
         computer_score = calculate_score(computer_cards)
 
-    print(f"    Your final hand: {user_cards}, final score: {user_score}")
-    print(f"    Computer's final hand: {computer_cards}, final score: {computer_score}")
+    print(f"    Sua mão final: {user_cards}, pontuação final: {user_score}")
+    print(f"    Mão final do computador: {computer_cards}, pontuação final: {computer_score}")
     print(compare(user_score, computer_score))
-while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
+while input("Você quer jogar uma partida de Blackjack? Digite 's' ou 'n': ") == "s":
+    os.system('cls')
     play_game()
